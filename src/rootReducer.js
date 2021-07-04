@@ -1,12 +1,19 @@
-const INITIAL_STATE = { count: 0 };
+const INITIAL_STATE = { phrases: [] };
 
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case "INCREMENT":
-      return { ...state, count: state.count + 1 };
+    case "ADD":
+      return { 
+        ...state, 
+        phrases: [...state.phrases, { ...action.payload }] 
+      };
 
-    case "DECREMENT":
-      return { ...state, count: state.count - 1 };
+    case "REMOVE":
+      return { 
+        ...state, 
+        phrases: state.phrases.filter(
+          p => p.uuid !== action.payload.uuid
+        ) };
 
     default:
       return state;
